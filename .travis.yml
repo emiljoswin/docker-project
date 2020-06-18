@@ -1,15 +1,17 @@
 language: generic
+
 sudo: required
 services:
-    - docker
+  - docker
 
 # Running tests, provide Dockerfile.dev as the docker file
 before_install:
-    - docker buid -t react-test-image -f ./client/Dockerfile.dev ./client
+  #- docker buid -t react-test-image -f ./client/Dockerfile.dev ./client
+  - docker buid -t react-test-image -f ./client/Dockerfile.dev ./client
 
 # Any command returning non-zero will be considered fail
 script:
-    - docker run -e CI=true react-test-image npm test
+  - docker run -e CI=true react-test-image npm test
 
 
 # Default Dockerfile
