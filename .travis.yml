@@ -7,7 +7,7 @@ services:
 # Running tests, provide Dockerfile.dev as the docker file
 before_install:
   #- docker buid -t react-test-image -f ./client/Dockerfile.dev ./client
-  - docker build -t react-test-image -f ./client/Dockerfile.dev ./client
+  - docker build -t ejblitz/react-test-image -f ./client/Dockerfile.dev ./client
 
 # Any command returning non-zero will be considered fail
 script:
@@ -16,14 +16,14 @@ script:
 
 # Default Dockerfile
 after_success:
-    - docker build -t docker-client ./client
-    - docker build -t docker-nginx ./nginx
-    - docker build -t docker-server ./server
-    - docker build -t docker-worker ./worker 
+    - docker build -t ejblitz/docker-client ./client
+    - docker build -t ejblitz/docker-nginx ./nginx
+    - docker build -t ejblitz/docker-server ./server
+    - docker build -t ejblitz/docker-worker ./worker 
     # Login to docker cli
     - echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin
     # push to docker hub
-    - docker push docker-client
-    - docker push docker-nginx
-    - docker push docker-server
-    - docker push docker-worker
+    - docker push ejblitz/docker-client
+    - docker push ejblitz/docker-nginx
+    - docker push ejblitz/docker-server
+    - docker push ejblitz/docker-worker
