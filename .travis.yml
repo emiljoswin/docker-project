@@ -11,7 +11,7 @@ before_install:
 
 # Any command returning non-zero will be considered fail
 script:
-  - docker run -e CI=true react-test-image npm test
+  - docker run -e CI=true ejblitz/react-test-image npm test
 
 
 # Default Dockerfile
