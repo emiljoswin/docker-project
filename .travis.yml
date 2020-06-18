@@ -1,29 +1,23 @@
 language: generic
 
 sudo: required
-services:
+services: 
   - docker
 
-# Running tests, provide Dockerfile.dev as the docker file
 before_install:
-  #- docker buid -t react-test-image -f ./client/Dockerfile.dev ./client
-  - docker buid -t react-test-image -f ./client/Dockerfile.dev ./client
+  - docker build -t simple-docker-app -f ./Dockerfile.dev .
 
-# Any command returning non-zero will be considered fail
-script:
-  - docker run -e CI=true react-test-image npm test
+script: 
+  - docker run -e CI=true simple-docker-app npm run test -- --coverage
 
-
-# Default Dockerfile
-#Rfter_success:
-#    - docker build -t docker-client ./client
-#    - docker build -t docker-nginx ./nginx
-#    - docker build -t docker-server ./server
-#    - docker build -t docker-worker ./worker 
-#    # Login to docker cli
-#    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-#    # push to docker hub
-#    - docker push docker-client
-#    - docker push docker-nginx
-#    - docker push docker-server
-#    - docker push docker-worker
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "simple-docker"
+  env: "SimpleDocker-env"
+  bucket-name: "elasticbeanstalk-us-east-2-244522864296"
+  bucket-path: "simple-docker"
+  on:
+    branch: "master"
+  access_key_id: $aws_access_key_id
+  secret_access_key: $aws_secret_access_key
