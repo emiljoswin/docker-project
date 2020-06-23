@@ -27,3 +27,18 @@ after_success:
     - docker push ejblitz/docker-nginx
     - docker push ejblitz/docker-server
     - docker push ejblitz/docker-worker
+
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: fibonacci-docker
+  env: FibonacciDocker-env
+  bucket_name: elasticbeanstalk-us-east-2-244522864296
+  bucket_path: fibonacci-docker
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_key_id: 
+    secure: $AWS_SECRET_KEY
+

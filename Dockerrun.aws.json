@@ -1,0 +1,39 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "_comment": "At leat on of the containers has to be marked essential",
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "ejblitz/docker-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "ejblitz/docker-server",
+            "hostname": "api",
+            "essential": false,
+            "__my_comment": "hostname is how it is referred by the docker-compose file"
+        },
+        {
+            "name": "worker",
+            "image": "ejblitz/docker-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "ejblitz/docker-ngnx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }
+    ]
+}
+
