@@ -26,7 +26,7 @@
         },
         {
             "name": "nginx",
-            "image": "ejblitz/docker-ngnx",
+            "image": "ejblitz/docker-nginx",
             "hostname": "nginx",
             "essential": true,
             "portMappings": [
