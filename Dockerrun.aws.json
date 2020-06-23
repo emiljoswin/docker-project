@@ -6,20 +6,23 @@
             "name": "client",
             "image": "ejblitz/docker-client",
             "hostname": "client",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "server",
             "image": "ejblitz/docker-server",
             "hostname": "api",
             "essential": false,
+            "memory": 128,
             "__my_comment": "hostname is how it is referred by the docker-compose file"
         },
         {
             "name": "worker",
             "image": "ejblitz/docker-worker",
             "hostname": "worker",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "nginx",
@@ -32,7 +35,8 @@
                     "containerPort": 80
                 }
             ],
-            "links": ["client", "server"]
+            "links": ["client", "server"],
+            "memory": 128
         }
     ]
 }
